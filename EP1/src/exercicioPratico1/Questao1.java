@@ -22,7 +22,7 @@ public class Questao1 {
 
 		graph = importGraphCSV(
 				graph, 
-				"../files/Astronautas.csv",
+				"./files/Astronautas.csv",
 				CSVFormat.MATRIX, 
 				false,
 				false,
