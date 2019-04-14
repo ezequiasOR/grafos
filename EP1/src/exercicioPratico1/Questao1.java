@@ -47,6 +47,7 @@ public class Questao1 {
 		return graph;
 	}
 	
+	
 	public static Graph<String,DefaultEdge> importGraphCSV (
 			Graph<String,DefaultEdge> graph, 
 			String filename, 
