@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.io.StringReader;
 
 import org.jgrapht.Graph;
+import org.jgrapht.generate.ComplementGraphGenerator;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.io.CSVFormat;
@@ -22,9 +23,19 @@ public class Questao1 {
 
 		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, 
 				false, false, true);
+		
+		ComplementGraphGenerator<String, DefaultEdge> complementGraphGenerator = new ComplementGraphGenerator<String, DefaultEdge>(graph);
+
+        Graph<String, DefaultEdge> graphCompement = new SimpleGraph<>(DefaultEdge.class);
+        complementGraphGenerator.generateGraph(graphCompement);
+
+
+        for (DefaultEdge e : graphCompement.edgeSet()) {
+            System.out.println(e);
+        }
+        
 		System.out.println("Vertices: " + graph.vertexSet());
 		System.out.println("Arestas: " + graph.edgeSet());
-		possiveisPares(graph);
 	}
 	
 	public static Graph<String,DefaultEdge> importGraphCSV (Graph<String,DefaultEdge> graph, String filename, CSVFormat f) {
@@ -79,18 +90,4 @@ public class Questao1 {
 		return readergml;
 	}
 	
-	public static void possiveisPares(Graph<String, DefaultEdge> graph) {
-		Graph<String, DefaultEdge> graphComplete = new SimpleGraph<>(DefaultEdge.class);
-		graphComplete = importGraphCSV(graph, "./files/AstronautasCompleto.csv", CSVFormat.MATRIX, 
-				false, false, true);
-		System.out.println("Possiveis Pares:");
-		for (DefaultEdge v : graph.edgeSet()) {
-			for (DefaultEdge v2 : graphComplete.edgeSet()) {
-				if (v.equals(v2)) {
-					System.out.println(v);
-				}
-			}
-		}
-		
-	}
 }
