@@ -20,13 +20,8 @@ public class Questao1 {
 
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
 
-		graph = importGraphCSV(
-				graph, 
-				"./files/Astronautas.csv",
-				CSVFormat.MATRIX, 
-				false,
-				false,
-				true); // MATRIX_FORMAT_NODEID
+		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, 
+				false, false, true);
 		
 		System.out.println("Vertices: " + graph.vertexSet());
 		System.out.println("Arestas: " + graph.edgeSet());
@@ -49,9 +44,7 @@ public class Questao1 {
 	
 	
 	public static Graph<String,DefaultEdge> importGraphCSV (
-			Graph<String,DefaultEdge> graph, 
-			String filename, 
-			CSVFormat f,
+			Graph<String,DefaultEdge> graph, String filename, CSVFormat f,
 			boolean pMATRIX_FORMAT_ZERO_WHEN_NO_EDGE,
 			boolean pEDGE_WEIGHT,
 			boolean pMATRIX_FORMAT_NODEID) {
