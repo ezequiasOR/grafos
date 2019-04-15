@@ -1,4 +1,4 @@
-package exercicioPratico1;
+package exercicioPratico;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -84,5 +84,9 @@ public class Questao1 {
 		}
 		StringReader readergml = new StringReader(contentBuilder.toString());
 		return readergml;
+	}
+	
+	public static void possiveisPares() {
+		System.out.println("Possiveis Pares:");
 	}
 }
