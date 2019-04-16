@@ -26,16 +26,10 @@ public class Questao1 {
 		
 		ComplementGraphGenerator<String, DefaultEdge> complementGraphGenerator = new ComplementGraphGenerator<String, DefaultEdge>(graph);
 
-        Graph<String, DefaultEdge> graphCompement = new SimpleGraph<>(DefaultEdge.class);
-        complementGraphGenerator.generateGraph(graphCompement);
+        Graph<String, DefaultEdge> graphComplement = new SimpleGraph<>(DefaultEdge.class);
+        complementGraphGenerator.generateGraph(graphComplement);
 
-
-        for (DefaultEdge e : graphCompement.edgeSet()) {
-            System.out.println(e);
-        }
-        
-		System.out.println("Vertices: " + graph.vertexSet());
-		System.out.println("Arestas: " + graph.edgeSet());
+		System.out.println("Possíveis pares: " + graphComplement.edgeSet());
 	}
 	
 	public static Graph<String,DefaultEdge> importGraphCSV (Graph<String,DefaultEdge> graph, String filename, CSVFormat f) {
