@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Comparator;
+import java.util.Iterator;
 
 import org.jgrapht.Graph;
+import org.jgrapht.GraphMapping;
+import org.jgrapht.alg.isomorphism.VF2GraphIsomorphismInspector;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.io.CSVFormat;
@@ -18,10 +21,26 @@ import org.jgrapht.io.VertexProvider;
 
 public class Questao2 {
 	public static void main(String[] args) {
-		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+		Graph<String, DefaultEdge> graph1 = new SimpleGraph<>(DefaultEdge.class);
 
-		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, 
+		graph1 = importGraphCSV(graph1, "./files/grafo1.csv", CSVFormat.MATRIX, 
 				false, false, true);
+		
+		Graph<String, DefaultEdge> graph2 = new SimpleGraph<>(DefaultEdge.class);
+
+		graph2 = importGraphCSV(graph2, "./files/grafo2.csv", CSVFormat.MATRIX, 
+				false, false, true);
+		
+		VF2GraphIsomorphismInspector <DefaultVertex,RelationshipEdge> iso1_2 = 
+	    		new VF2GraphIsomorphismInspector <> (graph1,graph2);
+	    if (iso1_2.isomorphismExists()) {
+	    	System.out.println("\nG1 eh isomorfico a G2? sim \nPossiveis bijecoes:");
+		    Iterator <GraphMapping <DefaultVertex,RelationshipEdge>> it = iso1_2.getMappings();
+		    while (it.hasNext()) {
+		    	System.out.println(it.next());
+		    }
+	   
+	    } else System.out.println("\nG1 eh isomorfico a G2? nao");
 	}
 	
 	public static Graph<String,DefaultEdge> importGraphCSV (Graph<String,DefaultEdge> graph, String filename, CSVFormat f) {
@@ -74,13 +93,5 @@ public class Questao2 {
 		}
 		StringReader readergml = new StringReader(contentBuilder.toString());
 		return readergml;
-	}
-	
-	public static void VF2SubgraphIsomorphismInspector(Graph<String,DefaultEdge> graph1,
-            Graph<String,DefaultEdge> graph2,
-            Comparator<String> vertexComparator,
-            Comparator<DefaultEdge> edgeComparator) {
-		
-		
 	}
 }
