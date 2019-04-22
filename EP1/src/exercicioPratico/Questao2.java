@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Comparator;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
@@ -73,5 +74,13 @@ public class Questao2 {
 		}
 		StringReader readergml = new StringReader(contentBuilder.toString());
 		return readergml;
+	}
+	
+	public static void VF2SubgraphIsomorphismInspector(Graph<String,DefaultEdge> graph1,
+            Graph<String,DefaultEdge> graph2,
+            Comparator<String> vertexComparator,
+            Comparator<DefaultEdge> edgeComparator) {
+		
+		
 	}
 }
