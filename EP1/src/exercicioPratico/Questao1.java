@@ -20,10 +20,16 @@ import org.jgrapht.io.VertexProvider;
  * A Questao 1 Visa analisar um grafo fornecido de astronautas
  * com nacionalidades e retornar possiveis pares de astronautas
  * com nacionalidades diferentes.
- * @author Galli
- *
+ * @author Joao vitor de Melo Cavalcante e Souza
+ * @author Ezequias de Oliveira Rocha
+ * @author Felipe Jeronimo Bernardo da Silva.
  */
 public class Questao1 {
+	/**
+	 * Aqui, o programa recebera o grafo e, analisando-o, verificara o seu complementar
+	 * e retornara os vertices ligados em tal.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
