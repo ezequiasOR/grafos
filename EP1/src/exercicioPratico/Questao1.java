@@ -22,7 +22,8 @@ public class Questao1 {
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
 
 		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, false, false, true);
-
+		printGraph(graph,"Base Graph:");
+		
 		ComplementGraphGenerator<String, DefaultEdge> complementGraphGenerator = new ComplementGraphGenerator<String, DefaultEdge>(
 				graph);
 
@@ -80,6 +81,17 @@ public class Questao1 {
 		}
 		StringReader readergml = new StringReader(contentBuilder.toString());
 		return readergml;
+	}
+	
+	public static <V,E> void printGraph (Graph <V,E> g ) {
+        System.out.println(g.vertexSet());
+		System.out.println(g.edgeSet()+"\n");
+	}
+	
+	public static <V,E> void printGraph (Graph <V,E> g, String title ) {
+		System.out.println(title);
+        System.out.println(g.vertexSet());
+		System.out.println(g.edgeSet()+"\n");
 	}
 
 }

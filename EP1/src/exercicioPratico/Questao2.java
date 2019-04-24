@@ -26,20 +26,22 @@ public class Questao2 {
 
 		graph1 = importGraphCSV(graph1, "./files/grafo1.csv", CSVFormat.MATRIX, 
 				false, false, true);
+		printGraph(graph1,"Base Graph:");
 		
 		Graph<String, DefaultEdge> graph2 = new SimpleGraph<>(DefaultEdge.class);
 
 		graph2 = importGraphCSV(graph2, "./files/grafo2.csv", CSVFormat.MATRIX, 
 				false, false, true);
+		printGraph(graph2,"Base Graph:");
 		
 		VF2SubgraphIsomorphismInspector <String, DefaultEdge> embeddingChecker = 
         		new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
 	    Iterator <GraphMapping <String,DefaultEdge>> it = embeddingChecker.getMappings();
 	    if (it.hasNext()) {
-	    	System.out.println("G1 is embedded in Base Graph. An example of a mapping: ");
+	    	System.out.println("Os grupos dos quarteirões que não podem ser separados são: ");
 	    	System.out.println(it.next());
 	    } else {
-	    	System.out.println("G1 is not embedded in Base Graph");
+	    	System.out.println("Não há grupos nos quarteirões que não podessam ser separados");
 	    }
 	}
 	
@@ -93,5 +95,16 @@ public class Questao2 {
 		}
 		StringReader readergml = new StringReader(contentBuilder.toString());
 		return readergml;
+	}
+	
+	public static <V,E> void printGraph (Graph <V,E> g ) {
+        System.out.println(g.vertexSet());
+		System.out.println(g.edgeSet()+"\n");
+	}
+	
+	public static <V,E> void printGraph (Graph <V,E> g, String title ) {
+		System.out.println(title);
+        System.out.println(g.vertexSet());
+		System.out.println(g.edgeSet()+"\n");
 	}
 }
