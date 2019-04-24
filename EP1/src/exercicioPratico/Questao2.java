@@ -52,11 +52,19 @@ public class Questao2 {
 		VF2SubgraphIsomorphismInspector <String, DefaultEdge> embeddingChecker = 
         		new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
 	    Iterator <GraphMapping <String,DefaultEdge>> it = embeddingChecker.getMappings();
+	    
+	    embeddingChecker = new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
+	    it = embeddingChecker.getMappings();
 	    if (it.hasNext()) {
 	    	System.out.println("Os grupos dos quarteirões que não podem ser separados são: ");
-	    	System.out.println(it.next());
+	    	GraphMapping <String,DefaultEdge> m = it.next();
+	    	Iterator <String> it2 = graph2.vertexSet().iterator();
+	    	while (it2.hasNext()) {
+	    		String v = it2.next();
+	    		System.out.print(v + "->" + m.getVertexCorrespondence(v,false) + " ");
+	    	}
 	    } else {
-	    	System.out.println("Não há grupos nos quarteirões que não podessam ser separados");
+	    	System.out.println("Não há grupos nos quarteirões que não podessam ser separados.");
 	    }
 	}
 	
@@ -82,6 +90,7 @@ public class Questao2 {
 		return graph;
 	}
 	
+
 	/**
 	 * O Metodo importara um arquivo CSV e o transformara em um objeto grafo.
 	 * @param graph Grafo que sera utilizado como base.
