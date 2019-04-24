@@ -31,16 +31,17 @@ public class Questao2 {
 		graph2 = importGraphCSV(graph2, "./files/grafo2.csv", CSVFormat.MATRIX, 
 				false, false, true);
 		
-		VF2GraphIsomorphismInspector <DefaultVertex,RelationshipEdge> iso1_2 = 
+		VF2GraphIsomorphismInspector <String,DefaultEdge> iso1_2 = 
 	    		new VF2GraphIsomorphismInspector <> (graph1,graph2);
 	    if (iso1_2.isomorphismExists()) {
 	    	System.out.println("\nG1 eh isomorfico a G2? sim \nPossiveis bijecoes:");
-		    Iterator <GraphMapping <DefaultVertex,RelationshipEdge>> it = iso1_2.getMappings();
+		    Iterator <GraphMapping <String, DefaultEdge>> it = iso1_2.getMappings();
 		    while (it.hasNext()) {
 		    	System.out.println(it.next());
 		    }
-	   
-	    } else System.out.println("\nG1 eh isomorfico a G2? nao");
+	    } else {
+	    	System.out.println("\nG1 eh isomorfico a G2? nao");
+	    }
 	}
 	
 	public static Graph<String,DefaultEdge> importGraphCSV (Graph<String,DefaultEdge> graph, String filename, CSVFormat f) {

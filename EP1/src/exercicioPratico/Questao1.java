@@ -21,55 +21,53 @@ public class Questao1 {
 
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
 
-		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, 
-				false, false, true);
-		
-		ComplementGraphGenerator<String, DefaultEdge> complementGraphGenerator = new ComplementGraphGenerator<String, DefaultEdge>(graph);
+		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, false, false, true);
 
-        Graph<String, DefaultEdge> graphComplement = new SimpleGraph<>(DefaultEdge.class);
-        complementGraphGenerator.generateGraph(graphComplement);
+		ComplementGraphGenerator<String, DefaultEdge> complementGraphGenerator = new ComplementGraphGenerator<String, DefaultEdge>(
+				graph);
+
+		Graph<String, DefaultEdge> graphComplement = new SimpleGraph<>(DefaultEdge.class);
+		complementGraphGenerator.generateGraph(graphComplement);
 
 		System.out.println("Possíveis pares: " + graphComplement.edgeSet());
 	}
-	
-	public static Graph<String,DefaultEdge> importGraphCSV (Graph<String,DefaultEdge> graph, String filename, CSVFormat f) {
+
+	public static Graph<String, DefaultEdge> importGraphCSV(Graph<String, DefaultEdge> graph, String filename,
+			CSVFormat f) {
 		VertexProvider<String> vp = (label, attributes) -> label;
 		EdgeProvider<String, DefaultEdge> ep = (from, to, label, attributes) -> new DefaultEdge();
 
 		CSVImporter<String, DefaultEdge> csvImporter = new CSVImporter<>(vp, ep);
-		csvImporter.setFormat(f); 
-		
+		csvImporter.setFormat(f);
+
 		try {
-			csvImporter.importGraph(graph, readFile(filename)); 
-		} catch (ImportException e) { 
-			throw new RuntimeException(e); 
+			csvImporter.importGraph(graph, readFile(filename));
+		} catch (ImportException e) {
+			throw new RuntimeException(e);
 		}
 		return graph;
 	}
-	
-	
-	public static Graph<String,DefaultEdge> importGraphCSV (
-			Graph<String,DefaultEdge> graph, String filename, CSVFormat f,
-			boolean pMATRIX_FORMAT_ZERO_WHEN_NO_EDGE,
-			boolean pEDGE_WEIGHT,
+
+	public static Graph<String, DefaultEdge> importGraphCSV(Graph<String, DefaultEdge> graph, String filename,
+			CSVFormat f, boolean pMATRIX_FORMAT_ZERO_WHEN_NO_EDGE, boolean pEDGE_WEIGHT,
 			boolean pMATRIX_FORMAT_NODEID) {
 		VertexProvider<String> vp = (label, attributes) -> label;
 		EdgeProvider<String, DefaultEdge> ep = (from, to, label, attributes) -> new DefaultEdge();
 
 		CSVImporter<String, DefaultEdge> csvImporter = new CSVImporter<>(vp, ep);
 		csvImporter.setFormat(f);
-	    csvImporter.setParameter(CSVFormat.Parameter.MATRIX_FORMAT_ZERO_WHEN_NO_EDGE,pMATRIX_FORMAT_ZERO_WHEN_NO_EDGE);
-	    csvImporter.setParameter(CSVFormat.Parameter.EDGE_WEIGHTS, pEDGE_WEIGHT);
-	    csvImporter.setParameter(CSVFormat.Parameter.MATRIX_FORMAT_NODEID, pMATRIX_FORMAT_NODEID);
-		
+		csvImporter.setParameter(CSVFormat.Parameter.MATRIX_FORMAT_ZERO_WHEN_NO_EDGE, pMATRIX_FORMAT_ZERO_WHEN_NO_EDGE);
+		csvImporter.setParameter(CSVFormat.Parameter.EDGE_WEIGHTS, pEDGE_WEIGHT);
+		csvImporter.setParameter(CSVFormat.Parameter.MATRIX_FORMAT_NODEID, pMATRIX_FORMAT_NODEID);
+
 		try {
-			csvImporter.importGraph(graph, readFile(filename)); 
-		} catch (ImportException e) { 
-			throw new RuntimeException(e); 
+			csvImporter.importGraph(graph, readFile(filename));
+		} catch (ImportException e) {
+			throw new RuntimeException(e);
 		}
 		return graph;
 	}
-	
+
 	public static Reader readFile(String filename) {
 		StringBuilder contentBuilder = new StringBuilder();
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -83,5 +81,5 @@ public class Questao1 {
 		StringReader readergml = new StringReader(contentBuilder.toString());
 		return readergml;
 	}
-	
+
 }
