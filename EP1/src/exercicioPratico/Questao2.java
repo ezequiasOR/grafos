@@ -37,12 +37,7 @@ public class Questao2 {
 		VF2SubgraphIsomorphismInspector <String, DefaultEdge> embeddingChecker = 
         		new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
 	    Iterator <GraphMapping <String,DefaultEdge>> it = embeddingChecker.getMappings();
-	    /*if (it.hasNext()) {
-	    	System.out.println("Os grupos dos quarteirões que não podem ser separados são: ");
-	    	System.out.println(it.next());
-	    } else {
-	    	System.out.println("Não há grupos nos quarteirões que não podessam ser separados.");
-	    }*/
+	    
 	    embeddingChecker = new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
 	    it = embeddingChecker.getMappings();
 	    if (it.hasNext()) {
@@ -72,7 +67,6 @@ public class Questao2 {
 		}
 		return graph;
 	}
-	
 	
 	public static Graph<String,DefaultEdge> importGraphCSV (
 			Graph<String,DefaultEdge> graph, String filename, CSVFormat f,
