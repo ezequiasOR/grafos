@@ -32,18 +32,6 @@ public class Questao2 {
 		graph2 = importGraphCSV(graph2, "./files/grafo2.csv", CSVFormat.MATRIX, 
 				false, false, true);
 		
-		/*VF2GraphIsomorphismInspector <String,DefaultEdge> iso1_2 = 
-	    		new VF2GraphIsomorphismInspector <> (graph1,graph2);
-	    if (iso1_2.isomorphismExists()) {
-	    	System.out.println("\nG1 eh isomorfico a G2? sim \nPossiveis bijecoes:");
-		    Iterator <GraphMapping <String, DefaultEdge>> it = iso1_2.getMappings();
-		    while (it.hasNext()) {
-		    	System.out.println(it.next());
-		    }
-	    } else {
-	    	System.out.println("\nG1 eh isomorfico a G2? nao");
-	    }*/
-		
 		VF2SubgraphIsomorphismInspector <String, DefaultEdge> embeddingChecker = 
         		new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
 	    Iterator <GraphMapping <String,DefaultEdge>> it = embeddingChecker.getMappings();
