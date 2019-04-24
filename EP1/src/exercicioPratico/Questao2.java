@@ -32,7 +32,7 @@ public class Questao2 {
 
 		graph2 = importGraphCSV(graph2, "./files/grafo2.csv", CSVFormat.MATRIX, 
 				false, false, true);
-		printGraph(graph2,"Base Graph:");
+		printGraph(graph2,"Graph 2:");
 		
 		VF2SubgraphIsomorphismInspector <String, DefaultEdge> embeddingChecker = 
         		new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
