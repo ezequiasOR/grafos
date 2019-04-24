@@ -37,11 +37,24 @@ public class Questao2 {
 		VF2SubgraphIsomorphismInspector <String, DefaultEdge> embeddingChecker = 
         		new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
 	    Iterator <GraphMapping <String,DefaultEdge>> it = embeddingChecker.getMappings();
-	    if (it.hasNext()) {
+	    /*if (it.hasNext()) {
 	    	System.out.println("Os grupos dos quarteirões que não podem ser separados são: ");
 	    	System.out.println(it.next());
 	    } else {
-	    	System.out.println("Não há grupos nos quarteirões que não podessam ser separados");
+	    	System.out.println("Não há grupos nos quarteirões que não podessam ser separados.");
+	    }*/
+	    embeddingChecker = new VF2SubgraphIsomorphismInspector <> (graph1,graph2);
+	    it = embeddingChecker.getMappings();
+	    if (it.hasNext()) {
+	    	System.out.println("Os grupos dos quarteirões que não podem ser separados são: ");
+	    	GraphMapping <String,DefaultEdge> m = it.next();
+	    	Iterator <String> it2 = graph2.vertexSet().iterator();
+	    	while (it2.hasNext()) {
+	    		String v = it2.next();
+	    		System.out.print(v + "->" + m.getVertexCorrespondence(v,false) + " ");
+	    	}
+	    } else {
+	    	System.out.println("Não há grupos nos quarteirões que não podessam ser separados.");
 	    }
 	}
 	
