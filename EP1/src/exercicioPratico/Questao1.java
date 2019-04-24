@@ -16,6 +16,13 @@ import org.jgrapht.io.EdgeProvider;
 import org.jgrapht.io.ImportException;
 import org.jgrapht.io.VertexProvider;
 
+/**
+ * A Questao 1 Visa analisar um grafo fornecido de astronautas
+ * com nacionalidades e retornar possiveis pares de astronautas
+ * com nacionalidades diferentes.
+ * @author Galli
+ *
+ */
 public class Questao1 {
 	public static void main(String[] args) {
 
@@ -32,7 +39,14 @@ public class Questao1 {
 
 		System.out.println("Possíveis pares: " + graphComplement.edgeSet());
 	}
-
+	
+	/**
+	 * O Metodo importara um arquivo CSV e o transformara em um objeto grafo.
+	 * @param graph Grafo que sera utilizado como base.
+	 * @param filename Nome do arquivo CSV.
+	 * @param f Formato do arquivo.
+	 * @return O Grafo com base no arquivo CSV recebido.
+	 */
 	public static Graph<String, DefaultEdge> importGraphCSV(Graph<String, DefaultEdge> graph, String filename,
 			CSVFormat f) {
 		VertexProvider<String> vp = (label, attributes) -> label;
@@ -49,6 +63,16 @@ public class Questao1 {
 		return graph;
 	}
 
+	/**
+	 * O Metodo importara um arquivo CSV e o transformara em um objeto grafo.
+	 * @param graph Grafo que sera utilizado como base.
+	 * @param filename Nome do arquivo CSV.
+	 * @param f Formato do arquivo.
+	 * @param pMATRIX_FORMAT_ZERO_WHEN_NO_EDGE
+	 * @param pEDGE_WEIGHT
+	 * @param pMATRIX_FORMAT_NODEID
+	 * @return Um Grafo com base no arquivo CSV.
+	 */
 	public static Graph<String, DefaultEdge> importGraphCSV(Graph<String, DefaultEdge> graph, String filename,
 			CSVFormat f, boolean pMATRIX_FORMAT_ZERO_WHEN_NO_EDGE, boolean pEDGE_WEIGHT,
 			boolean pMATRIX_FORMAT_NODEID) {
@@ -68,7 +92,12 @@ public class Questao1 {
 		}
 		return graph;
 	}
-
+	
+	/**
+	 * Ira ler o arquivo CSV.
+	 * @param filename Nome do arquivo.
+	 * @return Retornara um Reader.
+	 */
 	public static Reader readFile(String filename) {
 		StringBuilder contentBuilder = new StringBuilder();
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -83,11 +112,20 @@ public class Questao1 {
 		return readergml;
 	}
 	
+	/**
+	 * Printara um grafo a partir de seus vertices e arestas.
+	 * @param g Grafo a ser printado.
+	 */
 	public static <V,E> void printGraph (Graph <V,E> g ) {
         System.out.println(g.vertexSet());
 		System.out.println(g.edgeSet()+"\n");
 	}
 	
+	/**
+	 * Printara um grafo a partir de seus vertices e arestas.
+	 * @param g Grafo a ser printado.
+	 * @param title Titulo do grafo.
+	 */
 	public static <V,E> void printGraph (Graph <V,E> g, String title ) {
 		System.out.println(title);
         System.out.println(g.vertexSet());
