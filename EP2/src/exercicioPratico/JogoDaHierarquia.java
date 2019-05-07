@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Scanner;
 
 import org.jgrapht.Graph;
 import org.jgrapht.GraphTests;
@@ -18,16 +19,41 @@ import org.jgrapht.io.VertexProvider;
 
 public class JogoDaHierarquia {
 	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 		
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
-		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, false, false, true);
-		//TODO substituir arquivo
+		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo
+		
+		int n = Integer.parseInt(sc.nextLine());   // Lendo a qunatidade de chaces que que o jogador tem
 		
 		//System.out.println("Is it a tree? " + GraphTests.isTree(graph));  // printa true se for arvore, caso contrario, false
 		
 		if (GraphTests.isTree(graph)) {
+			String root = null;  //TODO achar a raiz do grafo e armazenar em uma variavel
+			
+			int i = 0;
+			boolean guard = true;
+			
+			while (guard && i < n) {
+				//TODO receber o chute do jogador e verificar se eh igual a raiz do grafo
+				String guessing = sc.nextLine();
+				if (guessing.equals(root)) {
+					guard = false;
+					System.out.println("Você acertou!");
+					//TODO imprimir a árvore enraizada.
+				} else {
+					if (!guard) {
+						System.out.println("Número de tentativas excedido!");
+					} else {
+						// TODO printar a responsta com o pai do vertice e os seus filhos
+					}
+				}
+				i++;
+			}
 			
 		}
+		
+		sc.close();
 		
 	}
 	
