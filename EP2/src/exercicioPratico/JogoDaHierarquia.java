@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.jgrapht.Graph;
@@ -29,7 +30,7 @@ public class JogoDaHierarquia {
 		//System.out.println("Is it a tree? " + GraphTests.isTree(graph));  // printa true se for arvore, caso contrario, false
 		
 		if (GraphTests.isTree(graph)) {
-			String root = null;  //TODO achar a raiz do grafo e armazenar em uma variavel
+			String root = getRoot(graph);  //TODO achar a raiz do grafo e armazenar em uma variavel
 			
 			int i = 0;
 			boolean guard = true;
@@ -42,13 +43,18 @@ public class JogoDaHierarquia {
 					System.out.println("Você acertou!");
 					//TODO imprimir a árvore enraizada.
 				} else {
-					if (!guard) {
-						System.out.println("Número de tentativas excedido!");
-					} else {
+					if (guard) {
 						// TODO printar a responsta com o pai do vertice e os seus filhos
+						String pai = null;
+						String filhos = null;
+						System.out.println(guessing + " não é raiz. O pai de " + guessing + " é " + pai + " e os filhos de " + guessing + " são " + filhos);
+
 					}
 				}
 				i++;
+			}
+			if (!guard) {
+				System.out.println("Número de tentativas excedido!");
 			}
 			
 		}
@@ -57,9 +63,14 @@ public class JogoDaHierarquia {
 		
 	}
 	
-	
-	
-	
+	private static String getRoot(Graph<String, DefaultEdge> graph) {
+		Iterator <String> vertex = graph.vertexSet().iterator();
+		while (vertex != null) {
+			//TODO ver qual é o vertice raiz e retornar ele pra ser usado na linha 33
+		}
+		return null;
+	}
+
 	/**
 	 * O Metodo importara um arquivo CSV e o transformara em um objeto grafo.
 	 * @param graph Grafo que sera utilizado como base.
