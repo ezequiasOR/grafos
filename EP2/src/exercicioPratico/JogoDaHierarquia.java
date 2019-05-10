@@ -25,7 +25,7 @@ public class JogoDaHierarquia {
 		Scanner sc = new Scanner(System.in);
 		
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
-		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo ********AQUI********
+		graph = importGraphCSV(graph, "./files/grafo.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo ********AQUI********
 		
 		int n = Integer.parseInt(sc.nextLine());   // Lendo a qunatidade de chaces que que o jogador tem
 		
