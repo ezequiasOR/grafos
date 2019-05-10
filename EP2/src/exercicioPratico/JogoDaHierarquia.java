@@ -42,22 +42,22 @@ public class JogoDaHierarquia {
 				String guessing = sc.nextLine();
 				if (guessing.equals(root)) {
 					guard = false;
-					System.out.println("Você acertou!");
+					System.out.println("Voce acertou!");
 					//TODO imprimir a árvore enraizada.   **********TA FALTANDO AQUI**************** (acho que ta feito agora)
-					printGraph(graph, "Você acertou!");
+					printGraph(graph, "Voce acertou!");
 				} else {
 					if (guard) {
 						// TODO printar a responsta com o pai do vertice e os seus filhos		(acho que ta feito)
 						List<String> pai = Graphs.predecessorListOf(graph, guessing);
 						List<String> filhos = Graphs.successorListOf(graph, guessing);
-						System.out.println(guessing + " não é raiz. O pai de " + guessing + " é " + pai + " e os filhos de " + guessing + " são " + filhos);
+						System.out.println(guessing + " nao eh raiz. O pai de " + guessing + " eh " + pai + " e os filhos de " + guessing + " sao " + filhos);
 
 					}
 				}
 				i++;
 			}
 			if (!guard) {
-				System.out.println("Número de tentativas excedido!");
+				System.out.println("Numero de tentativas excedido!");
 			}
 			
 		}
