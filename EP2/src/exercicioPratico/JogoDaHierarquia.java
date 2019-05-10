@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import org.jgrapht.Graph;
 import org.jgrapht.GraphTests;
+import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.io.CSVFormat;
@@ -23,30 +25,31 @@ public class JogoDaHierarquia {
 		Scanner sc = new Scanner(System.in);
 		
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
-		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo
+		graph = importGraphCSV(graph, "./files/Astronautas.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo ********AQUI********
 		
 		int n = Integer.parseInt(sc.nextLine());   // Lendo a qunatidade de chaces que que o jogador tem
 		
-		//System.out.println("Is it a tree? " + GraphTests.isTree(graph));  // printa true se for arvore, caso contrario, false
+		//System.out.println("Is it a tree? " + GraphTests.isTree(graph));  // printa true se for arvore, caso contrario, false  (essa linha nao importa
 		
 		if (GraphTests.isTree(graph)) {
-			String root = getRoot(graph);  //TODO achar a raiz do grafo e armazenar em uma variavel
+			String root = getRoot(graph);  //TODO achar a raiz do grafo e armazenar em uma variavel  (acho que ta feito)
 			
 			int i = 0;
 			boolean guard = true;
 			
 			while (guard && i < n) {
-				//TODO receber o chute do jogador e verificar se eh igual a raiz do grafo
+				//TODO receber o chute do jogador e verificar se eh igual a raiz do grafo  (acho que ta feito)
 				String guessing = sc.nextLine();
 				if (guessing.equals(root)) {
 					guard = false;
 					System.out.println("Você acertou!");
-					//TODO imprimir a árvore enraizada.
+					//TODO imprimir a árvore enraizada.   **********TA FALTANDO AQUI**************** (acho que ta feito agora)
+					printGraph(graph, "Você acertou!");
 				} else {
 					if (guard) {
-						// TODO printar a responsta com o pai do vertice e os seus filhos
-						String pai = null;
-						String filhos = null;
+						// TODO printar a responsta com o pai do vertice e os seus filhos		(acho que ta feito)
+						List<String> pai = Graphs.predecessorListOf(graph, guessing);
+						List<String> filhos = Graphs.successorListOf(graph, guessing);
 						System.out.println(guessing + " não é raiz. O pai de " + guessing + " é " + pai + " e os filhos de " + guessing + " são " + filhos);
 
 					}
@@ -65,8 +68,14 @@ public class JogoDaHierarquia {
 	
 	private static String getRoot(Graph<String, DefaultEdge> graph) {
 		Iterator <String> vertex = graph.vertexSet().iterator();
-		while (vertex != null) {
-			//TODO ver qual é o vertice raiz e retornar ele pra ser usado na linha 33
+		String root = "";
+		while (vertex.hasNext()) {
+			//TODO ver qual é o vertice raiz e retornar ele pra ser usado na linha 33  (acho que ta feito)
+			String v = vertex.next();
+			if (Graphs.predecessorListOf(graph, v).equals(null)){
+				root = v;
+				return root;
+			}
 		}
 		return null;
 	}
