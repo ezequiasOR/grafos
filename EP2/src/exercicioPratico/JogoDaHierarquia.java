@@ -12,6 +12,8 @@ import java.util.Scanner;
 import org.jgrapht.Graph;
 import org.jgrapht.GraphTests;
 import org.jgrapht.Graphs;
+import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
+import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.io.CSVFormat;
@@ -19,6 +21,7 @@ import org.jgrapht.io.CSVImporter;
 import org.jgrapht.io.EdgeProvider;
 import org.jgrapht.io.ImportException;
 import org.jgrapht.io.VertexProvider;
+import org.jgrapht.traverse.RandomWalkIterator;
 
 public class JogoDaHierarquia {
 	public static void main(String[] args) {
@@ -27,13 +30,16 @@ public class JogoDaHierarquia {
 		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
 		graph = importGraphCSV(graph, "./files/grafo.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo ********AQUI********
 		
+		RandomWalkIterator <String, DefaultEdge> random = new RandomWalkIterator<>(graph);
+		String root = random.next();
+		
+		DefaultDirectedGraph<String, DefaultEdge> rootedTree = new DefaultDirectedGraph<>(DefaultEdge.class);
+		
 		int n = Integer.parseInt(sc.nextLine());   // Lendo a qunatidade de chaces que que o jogador tem
 		
 		//System.out.println("Is it a tree? " + GraphTests.isTree(graph));  // printa true se for arvore, caso contrario, false  (essa linha nao importa
 		
 		if (GraphTests.isTree(graph)) {
-			String root = getRoot(graph);  //TODO achar a raiz do grafo e armazenar em uma variavel  (acho que ta feito)
-			
 			int i = 0;
 			boolean guard = true;
 			
@@ -66,6 +72,28 @@ public class JogoDaHierarquia {
 		
 	}
 	
+	public static <V,E> int level (Graph <V,E> g, V root, V v) {
+		if (g.containsVertex(v)&&root.equals(v)) {
+			return 0;
+		} else {
+			DijkstraShortestPath <V,E> pfinder = new DijkstraShortestPath <> (g);
+			return pfinder.getPath(root,v).getLength();
+		}
+	}
+	
+	public static void getRootedTree (SimpleGraph <String,DefaultEdge> basegraph, String root, DefaultDirectedGraph <String,DefaultEdge> rt) {
+		Graphs.addAllVertices(rt, basegraph.vertexSet());
+		Iterator <DefaultEdge> it = basegraph.edgeSet().iterator();
+		while (it.hasNext()) {
+			DefaultEdge e = it.next();
+			String source = basegraph.getEdgeSource(e);
+			String target = basegraph.getEdgeTarget(e);
+			if (level(basegraph,root,source) > level(basegraph,root,target)) {
+				rt.addEdge(target, source, new DefaultEdge());
+			} else rt.addEdge(source, target,new DefaultEdge());
+		}	
+	}
+	/*
 	private static String getRoot(Graph<String, DefaultEdge> graph) {
 		Iterator <String> vertex = graph.vertexSet().iterator();
 		String root = "";
@@ -79,7 +107,8 @@ public class JogoDaHierarquia {
 		}
 		return null;
 	}
-
+	*/
+	
 	/**
 	 * O Metodo importara um arquivo CSV e o transformara em um objeto grafo.
 	 * @param graph Grafo que sera utilizado como base.
