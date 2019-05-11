@@ -56,7 +56,7 @@ public class JogoDaHierarquia {
 				}
 				i++;
 			}
-			if (!guard) {
+			if (guard) {
 				System.out.println("Numero de tentativas excedido!");
 			}
 			
