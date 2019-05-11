@@ -60,6 +60,7 @@ public class JogoDaHierarquia {
 			if (guard) { System.out.println("Numero de tentativas excedido!"); }
 			
 		}
+		
 		sc.close();
 	}
 	
