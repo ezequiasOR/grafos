@@ -56,8 +56,8 @@ public class JogoDaHierarquia {
 				} else {
 					if (guard) {
 						// TODO printar a responsta com o pai do vertice e os seus filhos		(acho que ta feito)
-						List<String> pai = Graphs.predecessorListOf(graph, guessing);
-						List<String> filhos = Graphs.successorListOf(graph, guessing);
+						List<String> pai = Graphs.predecessorListOf(rootedTree, guessing);
+						List<String> filhos = Graphs.successorListOf(rootedTree, guessing);
 						System.out.println(guessing + " nao eh raiz. O pai de " + guessing + " eh " + pai + " e os filhos de " + guessing + " sao " + filhos);
 
 					}
