@@ -28,7 +28,7 @@ public class JogoDaHierarquia {
 		Scanner sc = new Scanner(System.in);
 		
 		SimpleGraph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
-		graph = (SimpleGraph<String, DefaultEdge>) importGraphCSV(graph, "./files/grafo.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo ********AQUI********
+		graph = (SimpleGraph<String, DefaultEdge>) importGraphCSV(graph, "./files/grafo.csv", CSVFormat.MATRIX, false, false, true);
 		
 		RandomWalkIterator <String, DefaultEdge> random = new RandomWalkIterator<>(graph);
 		String root = random.next();
@@ -39,45 +39,33 @@ public class JogoDaHierarquia {
 		
 		int n = Integer.parseInt(sc.nextLine());   // Lendo a qunatidade de chaces que que o jogador tem
 		
-		//System.out.println("Is it a tree? " + GraphTests.isTree(graph));  // printa true se for arvore, caso contrario, false  (essa linha nao importa
-		
 		if (GraphTests.isTree(graph)) {
 			int i = 0;
 			boolean guard = true;
 			
 			while (guard && i < n) {
-				//TODO receber o chute do jogador e verificar se eh igual a raiz do grafo  (acho que ta feito)
 				String guessing = sc.nextLine();
 				if (guessing.equals(root)) {
 					guard = false;
-					System.out.println("Voce acertou!");
-					//TODO imprimir a árvore enraizada.   **********TA FALTANDO AQUI**************** (acho que ta feito agora)
 					printGraph(graph, "Voce acertou!");
 				} else {
 					if (guard) {
-						// TODO printar a responsta com o pai do vertice e os seus filhos		(acho que ta feito)
 						List<String> pai = Graphs.predecessorListOf(rootedTree, guessing);
 						List<String> filhos = Graphs.successorListOf(rootedTree, guessing);
 						System.out.println(guessing + " nao eh raiz. O pai de " + guessing + " eh " + pai + " e os filhos de " + guessing + " sao " + filhos);
-
 					}
 				}
 				i++;
 			}
-			if (guard) {
-				System.out.println("Numero de tentativas excedido!");
-			}
+			if (guard) { System.out.println("Numero de tentativas excedido!"); }
 			
 		}
-		
 		sc.close();
-		
 	}
 	
 	public static <V,E> int level (Graph <V,E> g, V root, V v) {
-		if (g.containsVertex(v)&&root.equals(v)) {
-			return 0;
-		} else {
+		if (g.containsVertex(v)&&root.equals(v)) { return 0; }
+		else {
 			DijkstraShortestPath <V,E> pfinder = new DijkstraShortestPath <> (g);
 			return pfinder.getPath(root,v).getLength();
 		}
@@ -95,21 +83,6 @@ public class JogoDaHierarquia {
 			} else rt.addEdge(source, target,new DefaultEdge());
 		}	
 	}
-	/*
-	private static String getRoot(Graph<String, DefaultEdge> graph) {
-		Iterator <String> vertex = graph.vertexSet().iterator();
-		String root = "";
-		while (vertex.hasNext()) {
-			//TODO ver qual é o vertice raiz e retornar ele pra ser usado na linha 33  (acho que ta feito)
-			String v = vertex.next();
-			if (Graphs.predecessorListOf(graph, v).equals(null)){
-				root = v;
-				return root;
-			}
-		}
-		return null;
-	}
-	*/
 	
 	/**
 	 * O Metodo importara um arquivo CSV e o transformara em um objeto grafo.
