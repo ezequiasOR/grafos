@@ -27,13 +27,15 @@ public class JogoDaHierarquia {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
-		graph = importGraphCSV(graph, "./files/grafo.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo ********AQUI********
+		SimpleGraph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+		graph = (SimpleGraph<String, DefaultEdge>) importGraphCSV(graph, "./files/grafo.csv", CSVFormat.MATRIX, false, false, true);   //TODO substituir arquivo ********AQUI********
 		
 		RandomWalkIterator <String, DefaultEdge> random = new RandomWalkIterator<>(graph);
 		String root = random.next();
 		
 		DefaultDirectedGraph<String, DefaultEdge> rootedTree = new DefaultDirectedGraph<>(DefaultEdge.class);
+		
+		getRootedTree(graph, root, rootedTree);
 		
 		int n = Integer.parseInt(sc.nextLine());   // Lendo a qunatidade de chaces que que o jogador tem
 		
