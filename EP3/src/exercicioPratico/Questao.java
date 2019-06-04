@@ -5,8 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import org.jgrapht.Graph;
+import org.jgrapht.alg.scoring.BetweennessCentrality;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 import org.jgrapht.graph.SimpleGraph;
@@ -20,6 +28,14 @@ public class Questao {
 		Graph<DefaultVertex, RelationshipEdge> graph = new Multigraph<>(RelationshipEdge.class);
 		importGraphGML(graph, "./files/email-Eu-core-parte2.gml");
 		printGraph(graph);
+		
+		System.out.println("\n-ALPHA CENTRALITY- ");
+  	   	AlphaCentrality <DefaultVertex, RelationshipEdge> ac = new AlphaCentrality <> (ugraph,0.001);
+  	   	printOrderedVertexMeasures (ac.getScores(),0,true);
+		
+		System.out.println("-BETWEENESS CENTRALITY- ");
+  	   	BetweennessCentrality <DefaultVertex, RelationshipEdge> bc = new BetweennessCentrality <> (graph,true);
+  	   	printOrderedVertexMeasures (bc.getScores(),0,true);
 	}
 	
 	public static Graph<DefaultVertex,RelationshipEdge> importGraphGML (Graph<DefaultVertex,RelationshipEdge> graph, String filename) {
@@ -47,6 +63,35 @@ public class Questao {
 		}
 		StringReader readergml = new StringReader(contentBuilder.toString());
 		return readergml;
+	}
+    
+    static <V> void printOrderedVertexMeasures (Map <V,Double> M, int count, boolean descending) {
+		// count representa a quantidade de elementos que devem ser exibidos 
+		// em ordem decrescente do score. Se count = 0, ent�o todos ser�o exibidos
+        Set<Entry<V, Double>> set = M.entrySet();
+        List<Entry<V, Double>> list = new ArrayList<Entry<V, Double>>(set);
+        if (descending) {
+        	Collections.sort( list, new Comparator<Map.Entry<V, Double>>()
+        		{
+        			public int compare( Map.Entry<V, Double> o1, Map.Entry<V, Double> o2 ) {
+        				return (o2.getValue()).compareTo( o1.getValue() );
+        			}
+        		} );
+        } else {
+        	Collections.sort( list, new Comparator<Map.Entry<V, Double>>()
+    		{
+    			public int compare( Map.Entry<V, Double> o1, Map.Entry<V, Double> o2 ) {
+    				return (o1.getValue()).compareTo( o2.getValue() );
+    			}
+    		} );
+        }
+        if (count == 0) {
+        	count = list.size();
+        }
+        for (int i = 0; i<count; i++) {
+        	Entry<V,Double> e = list.get(i);
+        	System.out.print(e.getKey()+": "+ String.format("%.2f",(e.getValue()))+ "; ");
+        }
 	}
     
     public static <V,E> void printGraph (Graph <V,E> g ) {
