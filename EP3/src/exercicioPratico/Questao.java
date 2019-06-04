@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.jgrapht.Graph;
+import org.jgrapht.alg.scoring.AlphaCentrality;
 import org.jgrapht.alg.scoring.BetweennessCentrality;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
@@ -30,7 +31,7 @@ public class Questao {
 		printGraph(graph);
 		
 		System.out.println("\n-ALPHA CENTRALITY- ");
-  	   	AlphaCentrality <DefaultVertex, RelationshipEdge> ac = new AlphaCentrality <> (ugraph,0.001);
+  	   	AlphaCentrality <DefaultVertex, RelationshipEdge> ac = new AlphaCentrality <> (graph,0.001);
   	   	printOrderedVertexMeasures (ac.getScores(),0,true);
 		
 		System.out.println("-BETWEENESS CENTRALITY- ");
