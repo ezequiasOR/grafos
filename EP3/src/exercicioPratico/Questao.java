@@ -37,6 +37,10 @@ public class Questao {
 		System.out.println("Betweenness Centrality");
   	   	BetweennessCentrality <DefaultVertex, RelationshipEdge> betweennessCentrality = new BetweennessCentrality <> (graph,true);
   	   	printOrderedVertexMeasures (betweennessCentrality.getScores(),0,true);
+  	   	
+  	   	System.out.println("\n");
+  	   	System.out.println("Assortatividade");
+  	   	System.out.println(assortativityCoefficient(graph));
 	}
 	
 	public static Graph<DefaultVertex,RelationshipEdge> importGraphGML (Graph<DefaultVertex,RelationshipEdge> graph, String filename) {
@@ -94,6 +98,25 @@ public class Questao {
         	System.out.print(e.getKey()+": "+ String.format("%.2f",(e.getValue()))+ "; ");
         }
 	}
+    
+    static <V,E> double assortativityCoefficient (Graph <V, E> graph) {
+    	double edgeCount = graph.edgeSet().size();
+        double n1 = 0, n2 = 0, dn = 0;
+
+        for (E e : graph.edgeSet()) {
+            int d1 = graph.degreeOf(graph.getEdgeSource(e));
+            int d2 = graph.degreeOf(graph.getEdgeTarget(e));
+
+            n1 += d1 * d2;
+            n2 += d1 + d2;
+            dn += d1 * d1 + d2 * d2;
+        }
+        n1 /= edgeCount;
+        n2 = (n2 / (2 * edgeCount)) * (n2 / (2 * edgeCount));
+        dn /= (2 * edgeCount);
+        
+        return (n1 - n2) / (dn - n2);
+    }
     
     public static <V,E> void printGraph (Graph <V,E> g ) {
         System.out.println(g.vertexSet());
