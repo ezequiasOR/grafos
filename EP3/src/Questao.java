@@ -1,4 +1,6 @@
 
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -135,7 +137,7 @@ public class Questao {
 	}
 }
 
-public class RelationshipEdge {
+class RelationshipEdge {
 	private static final long serialVersionUID = 8238755873387699328L;
 	private Object v1;
 	private Object v2;
@@ -204,7 +206,7 @@ public class RelationshipEdge {
 
 }
 
-public class DefaultVertex {
+class DefaultVertex {
 	private static final long serialVersionUID = -4861285584479124799L;
 	private String id;
 	private Map<String, Attribute> att;
