@@ -26,14 +26,14 @@ public class Questao {
 	public static void main(String[] args) {
 		Graph<DefaultVertex, RelationshipEdge> graph = new Multigraph<>(RelationshipEdge.class);
 		importGraphGML(graph, "./files/email-Eu-core-parte2.gml");
+		System.out.println("Imprimindo grafo");
 		printGraph(graph);
 		
-		System.out.println();
 		System.out.println("Alpha Centrality");
   	   	AlphaCentrality <DefaultVertex, RelationshipEdge> alphaCentrality = new AlphaCentrality <> (graph,0.001);
   	   	printOrderedVertexMeasures (alphaCentrality.getScores(),0,true);
 		
-  	   	System.out.println();
+  	   	System.out.println("\n");
 		System.out.println("Betweenness Centrality");
   	   	BetweennessCentrality <DefaultVertex, RelationshipEdge> betweennessCentrality = new BetweennessCentrality <> (graph,true);
   	   	printOrderedVertexMeasures (betweennessCentrality.getScores(),0,true);
