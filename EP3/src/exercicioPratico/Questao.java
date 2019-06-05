@@ -1,4 +1,3 @@
-package exercicioPratico;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.HashMap;
+import java.io.Serializable;
 
 import org.jgrapht.Graph;
 import org.jgrapht.alg.scoring.AlphaCentrality;
@@ -21,6 +22,10 @@ import org.jgrapht.io.EdgeProvider;
 import org.jgrapht.io.GmlImporter;
 import org.jgrapht.io.ImportException;
 import org.jgrapht.io.VertexProvider;
+import org.jgrapht.io.Attribute;
+import org.jgrapht.io.AttributeType;
+import org.jgrapht.io.DefaultAttribute;
+import org.jgrapht.graph.DefaultEdge;
 
 public class Questao {
 	public static void main(String[] args) {
@@ -127,5 +132,124 @@ public class Questao {
 		System.out.println(title);
         System.out.println(g.vertexSet());
 		System.out.println(g.edgeSet()+"\n");
+	}
+}
+
+public class RelationshipEdge {
+	private static final long serialVersionUID = 8238755873387699328L;
+	private Object v1;
+	private Object v2;
+	private Map<String, Attribute> att;
+
+	// Construtores
+	public RelationshipEdge(Object v1, Object v2, Map<String, Attribute> att) {
+		this.v1 = v1;
+		this.v2 = v2;
+		this.att = att;
+	}
+	public RelationshipEdge(Object v1, Object v2, String label) {
+		this.v1 = v1;
+		this.v2 = v2;
+		att = new HashMap <String,Attribute> ();
+		att.put("label",new DefaultAttribute<String>(label,AttributeType.STRING));		
+	}
+
+    // Métodos de Acesso	
+	public String getLabel() {
+		Object o = att.get("label"); 
+		if (o == null) { 
+			return ("{" + v1 + "," + v2 + "}"); 
+		} else 
+			return o.toString(); 
+	}
+	public Object getNeighbor(Object v) {
+		if (v.equals(v1)) { 
+			return v2; 
+		} else 
+			return v1; 
+	}
+	public Object getV1() {
+		return v1;
+	}
+	public Object getV2() {
+		return v2;
+	}
+	
+	public Object getEdgeSource() {
+		return v1;
+	}
+	public Object getEdgeTarget() {
+		return v2;
+	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((v1 == null) ? 0 : v1.hashCode());
+		result = prime * result + ((v2 == null) ? 0 : v2.hashCode());
+		return result;
+	}
+
+	public boolean equals(RelationshipEdge e) {
+		return (this.getLabel()).equals(e.getLabel());
+	}
+
+	public String toString() {
+		Object o = att.get("label"); // captura o lable da aresta
+		if (o == null) { // analisa se este eh nulo. se for...
+			return ("{" + v1 + "," + v2 + "}"); // retorna uma representacao no formato "{v1,v2}"
+		} else // caso contrario...
+			return (att.get("label")).toString() + "->{" + v1 + "," + v2 + "}"; // retorna uma representacao no formato "lable->{v1,v2}"
+	}
+
+}
+
+public class DefaultVertex {
+	private static final long serialVersionUID = -4861285584479124799L;
+	private String id;
+	private Map<String, Attribute> att;
+
+    // Construtores
+	public DefaultVertex(String id, Map<String, Attribute> att) {
+		this.id = id;
+		this.att = att;
+	}
+	public DefaultVertex(String id) {
+		this.id = id;
+		this.att = new HashMap <String,Attribute> ();
+	}
+
+	// Métodos de Acesso
+	public String getId() {
+		return id;
+	}
+
+	public String getLabel() {
+		String label;
+		try {
+		   label = (att.get("label")).toString(); 
+	    } catch (Exception e) {
+		   label = id;
+	    }
+		return label;
+	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	public boolean equals(DefaultVertex v) {
+		String s1 = this.getId();
+		String s2 = v.getId();
+		if (s2 instanceof String)
+		return s1.equals(s2);
+		else return false;
+	}
+
+	public String toString() {
+		return this.getLabel();
 	}
 }
