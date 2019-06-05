@@ -16,9 +16,7 @@ import java.util.Map.Entry;
 import org.jgrapht.Graph;
 import org.jgrapht.alg.scoring.AlphaCentrality;
 import org.jgrapht.alg.scoring.BetweennessCentrality;
-import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
-import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.io.EdgeProvider;
 import org.jgrapht.io.GmlImporter;
 import org.jgrapht.io.ImportException;
@@ -31,12 +29,12 @@ public class Questao {
 		printGraph(graph);
 		
 		System.out.println("\n-ALPHA CENTRALITY- ");
-  	   	AlphaCentrality <DefaultVertex, RelationshipEdge> ac = new AlphaCentrality <> (graph,0.001);
-  	   	printOrderedVertexMeasures (ac.getScores(),0,true);
+  	   	AlphaCentrality <DefaultVertex, RelationshipEdge> alphaCentrality = new AlphaCentrality <> (graph,0.001);
+  	   	printOrderedVertexMeasures (alphaCentrality.getScores(),0,true);
 		
 		System.out.println("-BETWEENESS CENTRALITY- ");
-  	   	BetweennessCentrality <DefaultVertex, RelationshipEdge> bc = new BetweennessCentrality <> (graph,true);
-  	   	printOrderedVertexMeasures (bc.getScores(),0,true);
+  	   	BetweennessCentrality <DefaultVertex, RelationshipEdge> betweennessCentrality = new BetweennessCentrality <> (graph,true);
+  	   	printOrderedVertexMeasures (betweennessCentrality.getScores(),0,true);
 	}
 	
 	public static Graph<DefaultVertex,RelationshipEdge> importGraphGML (Graph<DefaultVertex,RelationshipEdge> graph, String filename) {
