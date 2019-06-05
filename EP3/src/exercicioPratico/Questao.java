@@ -28,11 +28,13 @@ public class Questao {
 		importGraphGML(graph, "./files/email-Eu-core-parte2.gml");
 		printGraph(graph);
 		
-		System.out.println("\n-ALPHA CENTRALITY- ");
+		System.out.println();
+		System.out.println("Alpha Centrality");
   	   	AlphaCentrality <DefaultVertex, RelationshipEdge> alphaCentrality = new AlphaCentrality <> (graph,0.001);
   	   	printOrderedVertexMeasures (alphaCentrality.getScores(),0,true);
 		
-		System.out.println("-BETWEENESS CENTRALITY- ");
+  	   	System.out.println();
+		System.out.println("Betweenness Centrality");
   	   	BetweennessCentrality <DefaultVertex, RelationshipEdge> betweennessCentrality = new BetweennessCentrality <> (graph,true);
   	   	printOrderedVertexMeasures (betweennessCentrality.getScores(),0,true);
 	}
@@ -65,8 +67,8 @@ public class Questao {
 	}
     
     static <V> void printOrderedVertexMeasures (Map <V,Double> M, int count, boolean descending) {
-		// count representa a quantidade de elementos que devem ser exibidos 
-		// em ordem decrescente do score. Se count = 0, ent�o todos ser�o exibidos
+		// count é a quantidade de elementos que devem ser exibidos em ordem decrescente do score. Se count for igual
+    	//a 0, entao todos serao exibidos
         Set<Entry<V, Double>> set = M.entrySet();
         List<Entry<V, Double>> list = new ArrayList<Entry<V, Double>>(set);
         if (descending) {
